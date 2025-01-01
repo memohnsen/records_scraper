@@ -59,24 +59,21 @@ def format_for_typescript(records):
     """Format records into TypeScript structure"""
     seen_records = {}  # Initialize seen_records at the start
     
-    # Initialize structure
+    # Initialize structure - removed collegiate category
     result = {
         "senior": {},
         "junior": {},
-        "collegiate": {},
         "U13": {},
         "U15": {},
         "U17": {}
     }
     
-    # Simplified age group mapping
+    # Simplified age group mapping - removed collegiate entries
     age_group_mapping = {
         "Open Men": ("senior", "Male"),
         "Open Women": ("senior", "Female"),
         "Junior Men": ("junior", "Male"),
         "Junior Women": ("junior", "Female"),
-        "Collegiate Men": ("collegiate", "Male"),
-        "Collegiate Women": ("collegiate", "Female"),
         "Youth Men (13 and Under)": ("U13", "Male"),
         "Youth Men (14-15)": ("U15", "Male"),
         "Youth Men (16-17)": ("U17", "Male"),
@@ -116,16 +113,15 @@ def format_for_typescript(records):
         }
         print(f"Added record for {category} - {key}")
     
-    # Restructure for final output
+    # Restructure for final output with new order
     final_result = {
-        "senior": result["senior"],
-        "junior": result["junior"],
-        "collegiate": result["collegiate"],
         "youth": {
             "U13": result["U13"],
             "U15": result["U15"],
             "U17": result["U17"]
-        }
+        },
+        "junior": result["junior"],
+        "senior": result["senior"]
     }
     
     return final_result
@@ -268,13 +264,7 @@ def format_as_typescript(records_data):
                         sorted_keys = sorted(records_data[category][youth_cat].keys(), key=weight_class_sort_key)
                         for key in sorted_keys:
                             record = records_data[category][youth_cat][key]
-                            lines.append(f'      "{key}": {{')
-                            lines.append('        americanRecords: {')
-                            lines.append(f'          snatch: {record["americanRecords"]["snatch"]},')
-                            lines.append(f'          cleanAndJerk: {record["americanRecords"]["cleanAndJerk"]},')
-                            lines.append(f'          total: {record["americanRecords"]["total"]}')
-                            lines.append('        }')
-                            lines.append('      },')
+                            lines.append(f'      "{key}": {{ americanRecords: {{ snatch: {record["americanRecords"]["snatch"]}, cleanAndJerk: {record["americanRecords"]["cleanAndJerk"]}, total: {record["americanRecords"]["total"]} }} }},')
                         if lines[-1].endswith(','):
                             lines[-1] = lines[-1][:-1]
                         lines.append('    },')
@@ -285,13 +275,7 @@ def format_as_typescript(records_data):
                 sorted_keys = sorted(records_data[category].keys(), key=weight_class_sort_key)
                 for key in sorted_keys:
                     record = records_data[category][key]
-                    lines.append(f'    "{key}": {{')
-                    lines.append('      americanRecords: {')
-                    lines.append(f'        snatch: {record["americanRecords"]["snatch"]},')
-                    lines.append(f'        cleanAndJerk: {record["americanRecords"]["cleanAndJerk"]},')
-                    lines.append(f'        total: {record["americanRecords"]["total"]}')
-                    lines.append('      }')
-                    lines.append('    },')
+                    lines.append(f'    "{key}": {{ americanRecords: {{ snatch: {record["americanRecords"]["snatch"]}, cleanAndJerk: {record["americanRecords"]["cleanAndJerk"]}, total: {record["americanRecords"]["total"]} }} }},')
                 if lines[-1].endswith(','):
                     lines[-1] = lines[-1][:-1]
             
