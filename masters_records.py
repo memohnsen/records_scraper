@@ -300,7 +300,7 @@ def format_as_typescript(records_data):
     return '\n'.join(lines)
 
 if __name__ == "__main__":
-    pdf_url = "https://assets.contentstack.io/v3/assets/blteb7d012fc7ebef7f/blt5a90ccbbc6d0a7c4/6759dfa9bbb2f6329539aa03/2024_American_records_121024.pdf"
+    pdf_url = "https://assets.contentstack.io/v3/assets/blteb7d012fc7ebef7f/blt77dc19e500ac2a2c/6759dfa96801015b3856b4c6/2024_Masters_American_Records_121024.pdf"
     weightlifting_data = extract_weightlifting_records_from_url(pdf_url)
     
     # Format data for TypeScript
@@ -311,5 +311,5 @@ if __name__ == "__main__":
     print(typescript_formatted)
     
     # Write to TypeScript file
-    with open('weightlifting_records.ts', 'w') as f:
+    with open('masters_records.ts', 'w') as f:
         f.write(typescript_formatted)
